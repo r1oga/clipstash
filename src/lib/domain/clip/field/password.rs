@@ -29,10 +29,6 @@ impl Password {
     pub fn has_password(self) -> bool {
           self.0.is_some()
     }
-
-    pub fn as_str(&self) -> &str {
-        self.0.as_str()
-    }
 }
 
 impl Default for Password {
