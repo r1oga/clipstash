@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use crate::domain::time::Time;
+use crate::domain::Time;
 use derive_more::Constructor;
 
 #[derive(Clone, Constructor, Debug, Deserialize, Serialize)]

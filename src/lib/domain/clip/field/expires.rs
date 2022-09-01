@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use crate::domain::clip::ClipError;
 // use super::ClipError;
 use std::str::FromStr;
-use crate::domain::time::Time;
+use crate::domain::Time;
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Expires(Option<Time>);
