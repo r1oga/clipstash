@@ -1,3 +1,4 @@
+use serde::{Deserialize, Serialize};
 use crate::data::DbId;
 use derive_more::Constructor;
 

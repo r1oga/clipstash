@@ -1,6 +1,5 @@
-use crate::domain::clip::ClipError;
+use serde::{Deserialize, Serialize};
 use derive_more::Constructor;
-// use super::ClipError;
 
 #[derive(Clone, Constructor, Debug, Deserialize, Serialize)]
 pub struct Hits(u64);

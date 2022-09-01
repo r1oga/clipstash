@@ -21,4 +21,4 @@ mod password;
 pub use password::Password;
 
 mod hits;
-pub use field::Hits;
+pub use hits::Hits;

@@ -1,5 +1,5 @@
+use serde::{Deserialize, Serialize};
 use crate::domain::clip::ClipError;
-use crate::domain::Time;
 // use super::ClipError;
 use std::str::FromStr;
 use crate::domain::time::Time;

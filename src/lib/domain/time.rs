@@ -1,8 +1,9 @@
+use serde::{Deserialize, Serialize};
 use chrono::{DateTime, NaiveDateTime, Utc};
 use derive_more::From;
 use std::str::FromStr;
 
-#[derive(Clone, Time, From, Deserialize, Serialize)]
+#[derive(Clone, Debug, From, Deserialize, Serialize)]
 pub struct Time(DateTime<Utc>);
 
 impl Time {
