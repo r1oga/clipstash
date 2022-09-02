@@ -5,14 +5,14 @@ use std::convert::TryFrom;
 
 #[derive(Debug, sqlx::FromRow)]
 pub struct Clip {
-    pub clip_id: String,
-    pub shortcode: String,
-    pub content: String,
-    pub title: Option<String>,
-    pub posted: NaiveDateTime,
-    pub expires: NaiveDateTime,
-    pub password: Option<String>,
-    pub hits: i64,
+    pub(in crate::data) clip_id: String,
+    pub(in crate::data) shortcode: String,
+    pub(in crate::data) content: String,
+    pub(in crate::data) title: Option<String>,
+    pub(in crate::data) posted: NaiveDateTime,
+    pub(in crate::data) expires: NaiveDateTime,
+    pub(in crate::data) password: Option<String>,
+    pub(in crate::data) hits: i64,
 }
 
 impl TryFrom<Clip> for crate::domain::clip::Clip {
