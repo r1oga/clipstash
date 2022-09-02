@@ -1,4 +1,5 @@
 pub mod model;
+pub mod query;
 
 use serde::{Deserialize, Serialize};
 use derive_more::{Display, From};
