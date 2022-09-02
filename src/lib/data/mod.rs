@@ -13,6 +13,10 @@ pub enum DataError {
     Database(#[from] sqlx::Error)
 }
 
+// encapsulating in custom type
+// so that we have better control
+// and that changes to make are collocated here
+// in case there is a crate update or we decide to change DB type
 pub type Db = Database<Sqlite>;
 pub type DbPool = sqlx::sqlite::SqlitePool; // pool of connections. Reuse already open connections for better perf
 pub type Tx<'t> = sqlx::Transaction<'t, Sqlite>; // to allow rolling back
