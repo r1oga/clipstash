@@ -6,8 +6,8 @@ use std::convert::TryInto;
 
 pub async fn get_clip(req: ask::GetClip, pool: &DbPool) -> Result<Clip, ServiceError> {
     let user_password = req.password.clone();
-    // From impl convert ask GetClip into data GetClip
-    // TryFrom impl convert model Clip result into domain Clip
+    // From impl converts ask GetClip into data GetClip
+    // TryFrom impl converts model Clip result into domain Clip
     let clip: Clip = query::get_clip(req, pool).await?.try_into()?;
 
     if clip.password.has_password() {
@@ -20,3 +20,9 @@ pub async fn get_clip(req: ask::GetClip, pool: &DbPool) -> Result<Clip, ServiceE
         Ok(clip)
     }
 }
+
+pub async fn new_clip(req: ask::NewClip, pool: &DbPool) -> Result<Clip, ServiceError> {
+    Ok(query::new_clip(req, pool).await?.try_into()?)
+}
+
+// pub async fn update_clip(req: ask::NewClip, pool: &DbPool) -> Result<Clip, ServiceError> {}
