@@ -38,4 +38,14 @@ Web Service that allows to paste and share clipboard content.
 - Data types shared across components
 - Enforces business rules on data
   - Domain objects cannot be created unless all rules satisfied
-- Access from/to any other component/layer
+
+## Setup
+### Database
+1. Install `sqlx-cli`:
+    ```commandline
+    cargo install sqlx-cli
+    ```
+2. Create DB and run initial migration:
+   ```commandline
+    sqlx database setup
+    ``` 
