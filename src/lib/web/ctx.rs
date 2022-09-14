@@ -10,7 +10,7 @@ pub trait PageCtx {
 #[derive(Debug, Serialize)]
 pub struct Home {}
 
-impl Home {
+impl Default for Home {
     fn default() -> Self { Self {} }
 }
 
