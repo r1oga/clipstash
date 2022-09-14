@@ -25,4 +25,6 @@ pub async fn new_clip(req: ask::NewClip, pool: &DbPool) -> Result<Clip, ServiceE
     Ok(query::new_clip(req, pool).await?.try_into()?)
 }
 
-// pub async fn update_clip(req: ask::NewClip, pool: &DbPool) -> Result<Clip, ServiceError> {}
+pub async fn update_clip(req: ask::UpdateClip, pool: &DbPool) -> Result<Clip, ServiceError> {
+    Ok(query::update_clip(req, pool).await?.try_into()?)
+}
