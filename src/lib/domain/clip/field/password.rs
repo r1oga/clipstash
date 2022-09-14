@@ -26,7 +26,7 @@ impl Password {
     }
 
     // need to expose this publicly to be able to check (constructor param is private)
-    pub fn has_password(self) -> bool {
+    pub fn has_password(&self) -> bool {
           self.0.is_some()
     }
 }
