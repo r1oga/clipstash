@@ -40,6 +40,15 @@ pub struct GetClip {
     pub(in crate::data) shortcode: String,
 }
 
+// convert GetClip from ask into GetClip model in order to send it to data layer
+impl From<crate::service::ask::GetClip> for GetClip {
+    fn from(req: crate::service::ask::GetClip) -> Self {
+        Self {
+            shortcode: req.shortcode.into_inner()
+        }
+    }
+}
+
 impl From<ShortCode> for GetClip {
     fn from(shortcode: ShortCode) -> Self {
         GetClip {
