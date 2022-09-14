@@ -23,8 +23,8 @@ impl<'a> Renderer<'a> {
         serde_json::to_value(&serializable).expect("failed to serialized struct into value") // should not fail as Serialize is derived almost everywhere
     }
 
-    pub fn render<P>(&self, ctx:P, errors:&[&str]) -> String
-    where P: PageCtx + serde::Serialize + std::fmt::Debug
+    pub fn render<P>(&self, ctx: P, errors: &[&str]) -> String
+        where P: PageCtx + serde::Serialize + std::fmt::Debug
     {
         let mut value = Self::serialize(&ctx);
         if let Some(value) = value.as_object_mut() {
@@ -36,10 +36,10 @@ impl<'a> Renderer<'a> {
         self.do_render(ctx.template_path(), value)
     }
 
-    pub fn render_with_data<P, D>(&self, ctx:P, data:(&str, D), errors:&[&str]) -> String
-    where
-        P: PageCtx + serde::Serialize + std::fmt::Debug,
-        D: serde::Serialize + std::fmt::Debug
+    pub fn render_with_data<P, D>(&self, ctx: P, data: (&str, D), errors: &[&str]) -> String
+        where
+            P: PageCtx + serde::Serialize + std::fmt::Debug,
+            D: serde::Serialize + std::fmt::Debug
     {
         use handlebars::to_json;
 
@@ -54,7 +54,7 @@ impl<'a> Renderer<'a> {
         self.do_render(ctx.template_path(), value)
     }
 
-    fn do_render(&self, path:&str, ctx: serde_json::Value) -> String {
+    fn do_render(&self, path: &str, ctx: serde_json::Value) -> String {
         self.0.render(path, &ctx).expect("error rendering template")
     }
 }
