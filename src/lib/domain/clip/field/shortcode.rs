@@ -1,8 +1,10 @@
+// so that we can use the uri! macro to redirect after adding a new clip
+use rocket::{UriDisplayPath, UriDisplayQuery};
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 use derive_more::From;
 
-#[derive(Clone, Debug, Deserialize, Serialize, From)]
+#[derive(Clone, Debug, Deserialize, Serialize, From, UriDisplayQuery, UriDisplayPath)]
 pub struct ShortCode(String);
 
 impl ShortCode {
