@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 use crate::domain::clip::ClipError;
-// use super::ClipError;
+
+use rocket::form::{self, FromFormField, ValueField};
 
 #[derive(Clone, Debug, Deserialize, Serialize)] // needs for serde because of the JSON API
 pub struct Content(String);
@@ -21,5 +22,13 @@ impl Content {
 
     pub fn as_str(&self) -> &str {
         self.0.as_str()
+    }
+}
+
+// rocket request lifetime
+#[rocket::async_trait]
+impl<'r> FromFormField<'r> for Content {
+    fn from_value(field: ValueField<'r>) -> form::Result<'r, Self> {
+        Ok(Self::new(field.value).map_err(|e| form::Error::validation(format!("{:?}", e)))?)
     }
 }
