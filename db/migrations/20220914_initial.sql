@@ -5,7 +5,7 @@ create table if not exists clips
     content   text not null,
     title     text,
     posted    datetime not null,
-    expires   datetime not null,
+    expires   datetime,
     password  TEXT,
     hits      bigint not null
 );

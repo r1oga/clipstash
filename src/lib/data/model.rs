@@ -11,7 +11,7 @@ pub struct Clip {
     pub(in crate::data) content: String,
     pub(in crate::data) title: Option<String>,
     pub(in crate::data) posted: NaiveDateTime,
-    pub(in crate::data) expires: NaiveDateTime,
+    pub(in crate::data) expires: Option<NaiveDateTime>,
     pub(in crate::data) password: Option<String>,
     pub(in crate::data) hits: i64,
 }
@@ -29,7 +29,7 @@ impl TryFrom<Clip> for crate::domain::clip::Clip {
             content: Content::new(clip.content.as_str())?,
             title: Title::new(clip.title),
             posted: Posted::new(Time::from_naive_utc(clip.posted)),
-            expires: Expires::new(Time::from_naive_utc(clip.expires)),
+            expires: Expires::new(Time::from_naive_utc(clip.expires?)),
             password: Password::new(clip.password.unwrap_or_default())?,
             hits: Hits::new(u64::try_from(clip.hits)?),
         })
@@ -83,7 +83,7 @@ impl From<crate::service::ask::NewClip> for NewClip {
             content: req.content.into_inner(),
             title: req.title.into_inner(),
             posted: Utc::now().timestamp(),
-            expires: req.expires.into_inner().map(|time|time.timestamp().into()),
+            expires: req.expires.into_inner().map(|time|time.timestamp()),
             password: req.password.into_inner()
         }
     }
