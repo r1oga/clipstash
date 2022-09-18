@@ -94,7 +94,18 @@ impl HitCounter {
                     ) {
                         eprintln!("message processing error {:?}", e)
                     },
-                    Err(e) => todo!()
+                    Err(e) => match e {
+                        // channel empty
+                        TryRecvError::Empty => {
+                            // wait
+                            std::thread::sleep(Duration::from_secs(5));
+                            // commit to Db if no errors
+                            if let Err(e) = tx_clone.send(HitCountMsg::Commit) {
+                                eprintln!("error sending commit msg to hits channel {:?}", e)
+                            }
+                        },
+                        _ => break
+                    }
                 }
             }
         });
