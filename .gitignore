@@ -1,2 +1,8 @@
 /target
 .idea
+
+# temporary SQLITE files
+# write-ahead log
+*.db-wal
+#shared memory file
+*.db-shm
