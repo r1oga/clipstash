@@ -235,9 +235,11 @@ name = "clipstash"
 version = "0.1.0"
 dependencies = [
  "chrono",
+ "crossbeam-channel",
  "derive_more",
  "dotenv",
  "handlebars",
+ "parking_lot 0.11.2",
  "rand",
  "rocket",
  "serde",
@@ -302,6 +304,16 @@ name = "crc-catalog"
 version = "1.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ccaeedb56da03b09f598226e25e80088cb4cd25f316e6e4df7d695f0feeb1403"
+
+[[package]]
+name = "crossbeam-channel"
+version = "0.5.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c2dd04ddaf88237dc3b8d8f9a3c1004b506b54b3313403944054d23c0870c521"
+dependencies = [
+ "cfg-if",
+ "crossbeam-utils",
+]
 
 [[package]]
 name = "crossbeam-queue"

@@ -28,3 +28,9 @@ pub async fn new_clip(req: ask::NewClip, pool: &DbPool) -> Result<Clip, ServiceE
 pub async fn update_clip(req: ask::UpdateClip, pool: &DbPool) -> Result<Clip, ServiceError> {
     Ok(query::update_clip(req, pool).await?.try_into()?)
 }
+
+pub async fn increase_hit_count(shortcode: &ShortCode, hits: u32, pool: &DbPool) -> Result<(), ServiceError>{ Ok(query::increase_hit_count(shortcode, hits, pool).await?) }
+
+pub async fn begin_tx(pool:&DbPool) -> Result<Tx<'_>, ServiceError> { Ok(pool.begin().await?) }
+
+pub async fn end_tx(tx: Tx<'_>) -> Result<(), ServiceError> { Ok(tx.commit().await?) }

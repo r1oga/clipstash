@@ -10,7 +10,7 @@ Web Service that allows to paste and share clipboard content.
 ![diagram](architecture.png)
 
 ### Components
-### Web
+#### Web
 - Communicates wih outside world (clients):
   - Reports errors
   - renders pages
@@ -21,23 +21,27 @@ Web Service that allows to paste and share clipboard content.
   - Spawn background tasks
 - Has no direct access to data layer/component. It must go through the Service component to get data.
 
-### Service
+#### Service
 - Intermediate layer between web requests and database.
   - can communicate with web and data components.
   - can't communicate with clients
 - Abstracts user requests and data access
 - Implements core application logic
 
-### Database
+#### Database
 - Manages data storage and retrieval
 - Works directly with database
 - No logic: only queries (no modification on ingoing/outgoing data)\
 - Can only communicate with service component
 
-### Domain
+#### Domain
 - Data types shared across components
 - Enforces business rules on data
   - Domain objects cannot be created unless all rules satisfied
+
+### Hit Counter
+<img src="hit_counter.png" width="400" alt="hit counter diagram">
+
 
 ## Setup
 ### Database

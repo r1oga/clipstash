@@ -4,6 +4,7 @@ use clipstash::web::{renderer::Renderer};
 use dotenv::dotenv;
 use rocket::{Ignite, Rocket};
 use structopt::StructOpt;
+use clipstash::web::hit_counter::HitCounter;
 
 #[derive(StructOpt, Debug)]
 #[structopt(name = "httpd")]
@@ -21,13 +22,17 @@ fn main() {
     let rt = tokio::runtime::Runtime::new().expect("failed to spaw tokio runtime");
 
     let handle = rt.handle().clone();
+    let renderer = Renderer::new(opt.template_dir.clone());
+    let db: Db = rt.block_on(async move { Db::new(&opt.db_uri).await });
+    let hit_counter = HitCounter::new(db.get_pool().clone(), handle.clone());
 
-    let _ = rt.block_on(async move {
-        let renderer = Renderer::new(opt.template_dir);
-        let db = Db::new(&opt.db_uri).await;
+    let config = clipstash::RocketConfig { renderer, db, hit_counter };
 
-        let config = clipstash::RocketConfig { renderer, db };
 
-        clipstash::rocket(config).launch().await.expect("failed to launch rocket server")
-    });
+    rt.block_on(async move {
+        let _ = clipstash::rocket(config)
+            .launch()
+            .await
+            .expect("failed to launch rocket server");
+    })
 }
