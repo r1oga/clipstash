@@ -29,7 +29,7 @@ impl TryFrom<Clip> for crate::domain::clip::Clip {
             content: Content::new(clip.content.as_str())?,
             title: Title::new(clip.title),
             posted: Posted::new(Time::from_naive_utc(clip.posted)),
-            expires: Expires::new(Time::from_naive_utc(clip.expires?)),
+            expires: Expires::new(clip.expires.map(Time::from_naive_utc)),
             password: Password::new(clip.password.unwrap_or_default())?,
             hits: Hits::new(u64::try_from(clip.hits)?),
         })
