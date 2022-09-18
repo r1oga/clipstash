@@ -17,10 +17,10 @@ pub const API_KEY_HEADER: &str = "x-api-key";
 
 #[derive(Responder, Debug, thiserror::Error, Serialize)]
 pub enum ApiKeyError {
-    #[error("API key not found: {0}")]
+    #[error("API key not found")]
     #[response(status = 404, content_type = "json")]
     NotFound(String),
-    #[error("invalid API key format: {0}")]
+    #[error("invalid API key format")]
     #[response(status = 400, content_type = "json")]
     DecodeError(String),
 }
@@ -178,7 +178,7 @@ pub async fn update_clip(
 }
 
 pub fn routes() -> Vec<rocket::Route> {
-    rocket::routes!(get_clip, new_clip, update_clip)
+    rocket::routes!(get_clip, new_clip, update_clip, new_api_key)
 }
 
 pub mod catcher {
@@ -214,6 +214,6 @@ pub mod catcher {
     }
 
     pub fn catchers() -> Vec<Catcher> {
-        catchers![not_found, default, internal_error, not_found, request_error]
+        catchers![not_found, default, internal_error, missing_api_key, request_error]
     }
 }
