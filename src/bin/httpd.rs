@@ -4,6 +4,7 @@ use clipstash::web::{renderer::Renderer};
 use dotenv::dotenv;
 use rocket::{Ignite, Rocket};
 use structopt::StructOpt;
+use clipstash::domain::maintenance::Maintenance;
 use clipstash::web::hit_counter::HitCounter;
 
 #[derive(StructOpt, Debug)]
@@ -25,8 +26,9 @@ fn main() {
     let renderer = Renderer::new(opt.template_dir.clone());
     let db: Db = rt.block_on(async move { Db::new(&opt.db_uri).await });
     let hit_counter = HitCounter::new(db.get_pool().clone(), handle.clone());
+    let maintenance = Maintenance::spawn(db.get_pool().clone(), handle.clone());
 
-    let config = clipstash::RocketConfig { renderer, db, hit_counter };
+    let config = clipstash::RocketConfig { renderer, db, hit_counter, maintenance };
 
 
     rt.block_on(async move {
