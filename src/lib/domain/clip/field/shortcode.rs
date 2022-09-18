@@ -1,5 +1,7 @@
 // so that we can use the uri! macro to redirect after adding a new clip
 use rocket::{UriDisplayPath, UriDisplayQuery};
+use rocket::request::FromParam;
+use crate::ClipError;
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 use derive_more::From;
@@ -51,14 +53,13 @@ impl From<&str> for ShortCode {
 
 // for completeness
 impl FromStr for ShortCode {
-    type Err = ();
+    type Err = ClipError;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Ok(Self(s.into()))
     }
 }
 
 // so that http::get_clip can use Shortcode route param
-use rocket::request::FromParam;
 impl<'r> FromParam<'r> for ShortCode {
     type Error = &'r str;
 
