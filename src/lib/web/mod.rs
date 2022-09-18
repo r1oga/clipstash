@@ -5,6 +5,8 @@ pub mod renderer;
 pub mod form;
 pub mod http;
 
+pub const PASSWORD_COOKIE: &str = "password";
+
 #[derive(rocket::Responder)]
 pub enum PageError {
     #[response(status = 500)]
