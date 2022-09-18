@@ -49,3 +49,7 @@ pub async fn revoke_api_key(api_key:ApiKey, pool:&DbPool) -> Result<RevocationSt
 pub async fn api_key_is_valid(api_key:ApiKey, pool:&DbPool) -> Result<bool, ServiceError> {
     Ok(query::api_key_is_valid(api_key, pool).await?)
 }
+
+pub async fn delete_expired(pool: &DbPool) -> Result<u64, ServiceError> {
+    Ok(query::delete_expired(pool).await?)
+}
