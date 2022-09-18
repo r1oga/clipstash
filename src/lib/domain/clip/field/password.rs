@@ -12,7 +12,7 @@ impl Password {
         let password: Option<String> = password.into();
         match password {
             Some(password) => {
-                if password.trim().is_empty() {
+                if !password.trim().is_empty() {
                     Ok(Self(Some(password)))
                 } else {
                     Ok(Self(None))
@@ -50,6 +50,8 @@ impl FromStr for Password {
 #[rocket::async_trait]
 impl<'r> FromFormField<'r> for Password {
     fn from_value(field: ValueField<'r>) -> form::Result<'r, Self> {
-        Ok(Self::new(field.value.to_owned()).map_err(|e| form::Error::validation(format!("{:?}", e)))?)
+        Ok(Self::new(field.value.to_owned())
+            .map_err(|e| form::Error::validation(format!("{:?}", e)))?
+        )
     }
 }
