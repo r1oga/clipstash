@@ -53,3 +53,6 @@ Web Service that allows to paste and share clipboard content.
    ```commandline
     sqlx database setup --source "db/migrations"
     ``` 
+
+## Credit
+[Jason Lennon Rust Course](https://github.com/jayson-lennon/ztm-rust)
