@@ -21,7 +21,7 @@ fn home(renderer: &State<Renderer<'_>>) -> RawHtml<String> {
 
 
 #[rocket::post("/", data = "<form>")]
-pub async fn add_clip(
+pub async fn new_clip(
     // rocket can only call a function for a route if all data exists.
     // form data may not exist or be incorrect
     // using Contextual allows to accept invalid form data
@@ -190,7 +190,7 @@ pub fn routes() -> Vec<rocket::Route> {
     rocket::routes![
         home,
         get_clip,
-        add_clip,
+        new_clip,
         submit_clip_password,
         get_raw_clip
     ]
@@ -297,6 +297,5 @@ pub mod test {
             .dispatch();
         assert_eq!(response.status(), Status::Unauthorized);
     }
-}
 }
 
