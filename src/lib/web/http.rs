@@ -253,7 +253,7 @@ pub mod test {
         let rt = async_runtime();
 
         let client = client();
-        let db = client.rocket().state::<AppDatabase>().unwrap();
+        let db = client.rocket().state::<Db>().unwrap();
 
         let req = service::ask::NewClip {
             content: Content::new("content").unwrap(),
